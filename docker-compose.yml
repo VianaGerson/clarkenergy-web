@@ -1,0 +1,9 @@
+services:
+    clarke-web:
+      build: .
+      container_name: clarke-web
+      ports:
+        - "5173:5173"
+      volumes:
+        - .:/app
+      tty: true # Garante que o log apareça corretamente no console

@@ -1,0 +1,8 @@
+<svg
+  viewBox="0 0 50 50"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  className="h-8"
+>
+  <path d="M15 30L25 10L22 28H32L22 50L25 32H15Z" fill="#16a34a" />
+</svg>
