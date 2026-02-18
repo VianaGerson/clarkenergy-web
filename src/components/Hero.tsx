@@ -51,7 +51,7 @@ export default function Hero() {
             >
               economia&nbsp;
             </Typography>
-            no &nbsp;
+            no&nbsp;
             <Typography
               component="span"
               variant="h1"
