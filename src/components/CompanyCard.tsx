@@ -50,15 +50,19 @@ export default function CompanyCard({ company, isBest }: CompanyCardProps) {
           label={company.type}
           size="small"
           variant="outlined"
-          color={
-            company.type === "GD" ? "primary" : "secondary"
-          }
+          color={company.type === "GD" ? "primary" : "secondary"}
         />
         <Typography variant="body2">
-          Preço kWh: <b>R$ {company.price_kwh}</b>
+          Preço kWh:{" "}
+          <b>
+            R${" "}
+            {Number(company.price_kwh).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+            })}
+          </b>
         </Typography>
         <Typography variant="body2">
-          Clientes: {company.total_customers}
+          Clientes: {Number(company.total_customers).toLocaleString("pt-BR")}
         </Typography>
         <Rating
           value={Number(company.rates)}
@@ -71,8 +75,11 @@ export default function CompanyCard({ company, isBest }: CompanyCardProps) {
           color="success.main"
           sx={{ fontWeight: "bold", mt: 1 }}
         >
-          Economia estimada: R$ {company.estimate_economy} (
-          {company.economy_percentual}%)
+          Economia estimada: R${" "}
+          {Number(company.estimate_economy).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+          })}{" "}
+          ({company.economy_percentual}%)
         </Typography>
       </Box>
     </Card>

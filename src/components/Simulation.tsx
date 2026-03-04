@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Card,
-  CircularProgress,
-  Container,
-} from "@mui/material";
+import { Alert, Box, Card, CircularProgress, Container } from "@mui/material";
 import axios from "axios";
 import SimulationForm from "./SimulationForm";
 import SimulationResults from "./SimulationResults";
@@ -26,9 +21,10 @@ interface SimulationResult {
 
 export default function Simulation() {
   const [uf, setUf] = useState("");
-  const [consumekWh, setConsumekWh] = useState("");
+  const [consumekWh, setConsumekWh] = useState(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SimulationResult | null>(null);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,12 +33,13 @@ export default function Simulation() {
     await axios
       .post(`${API_URL}/economy/simulate_economy`, { uf, consumekWh })
       .then((response) => {
-        console.log("Simulation Result:", response.data);
         setResult(response.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setErrors(
+          error.response?.data.message || ["Ocorreu um erro inesperado."],
+        );
         setLoading(false);
       });
   };
@@ -51,6 +48,7 @@ export default function Simulation() {
     setUf("");
     setConsumekWh("");
     setResult(null);
+    setErrors([]);
   };
 
   return (
@@ -64,7 +62,10 @@ export default function Simulation() {
         }}
       >
         <Box>
-          <img src={"/economy.webp"} style={{ width: '100%', maxWidth: 400, height: 'auto' }} />
+          <img
+            src={"/economy.webp"}
+            style={{ width: "100%", maxWidth: 400, height: "auto" }}
+          />
         </Box>
         <Box>
           <Card
@@ -98,6 +99,15 @@ export default function Simulation() {
                   onSubmit={handleSubmit}
                   loading={loading}
                 />
+              )}
+              {errors.length > 0 && (
+                <>
+                  {errors.map((err, index) => (
+                    <Alert severity="error" key={index} sx={{ mt: 2 }}>
+                      {err}
+                    </Alert>
+                  ))}
+                </>
               )}
             </Box>
           </Card>

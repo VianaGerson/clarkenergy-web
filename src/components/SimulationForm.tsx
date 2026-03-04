@@ -2,9 +2,9 @@ import { Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Selec
 
 interface SimulationFormProps {
   uf: string;
-  consumekWh: string;
+  consumekWh: number;
   onUfChange: (value: string) => void;
-  onConsumeChange: (value: string) => void;
+  onConsumeChange: (value: number) => void;
   onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
   loading: boolean;
 }
@@ -90,7 +90,7 @@ export default function SimulationForm({ uf, consumekWh, onUfChange, onConsumeCh
             variant="filled"
             fullWidth
             value={consumekWh}
-            onChange={(e) => onConsumeChange(e.target.value)}
+            onChange={(e) => onConsumeChange(Number(e.target.value))}
             required
             margin="normal"
           />

@@ -99,8 +99,8 @@ export default function SimulationResults({
           <Typography variant="h5">
             R${" "}
             {activeTab === "GD"
-              ? bestGD?.estimate_economy
-              : bestML?.estimate_economy}
+              ? Number(bestGD?.estimate_economy).toLocaleString("pt-BR", { minimumFractionDigits: 2 })
+              : Number(bestML?.estimate_economy).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
             <small>
               {" "}
               (
